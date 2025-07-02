@@ -1,110 +1,146 @@
 # JThemeManager
 
-JThemeManager es una libreria que **se encarga de Aplicar UI 
- personalizada y una Paleta de colores minimalista** , esta se 
- puede aplicar de dos maneras segun el programador lo decida, jerarquica 
- y por tono de luminosidad. a base de archivos .properties.
-  
-***
-### Theme By Tone
+**JThemeManager** es una librería para Java Swing que permite aplicar interfaces personalizadas mediante una paleta de colores minimalista. Los temas se pueden aplicar de dos formas: **por jerarquía de componentes** o **por tono de luminosidad**, utilizando archivos `.properties`.
 
-Este modo se aplica de forma mas manual y directa, bajo una regla igual 
- de sencilla una **escala de grises simplificada (negro, gris, 
- blanco),** segun el cual se aplicara el color primario secundario 
- y tersario del tema en cuestion, con el texto ocurre de una manera 
- similar, dando mucho control al diseñador sobre de que color es un 
- componente x. ejemplo:
+---
+
+## 🎨 Modo: Theme By Tone
+
+Este modo se aplica de forma **manual** y ofrece un alto control sobre la apariencia de cada componente. Utiliza una **escala de grises simplificada** (negro, gris, blanco) para definir los tonos del tema: color primario, secundario y terciario. El texto se adapta de manera similar, permitiendo personalizar el color de cualquier componente de forma precisa.
+
+**Ejemplo visual:**
+
 ![DarkThemeByTone.png](media/DarkThemeByTone.png)
- 
 
-***
-### Theme By Level
+---
 
-Este modo se aplica de forma automatica bajo una regla sencilla: la **jerarquia** . 
- el tema al aplicarse desde el componente padre hasta los componentes 
- hijos, **va incrementando su nivel, aumentando la luminocidad o 
- oscuridad** del componente bajo cierto limite establecido de 3 
- niveles antes de reiniciar el tono al original. ejemplo:
- 
-![DarkThemeByLevel](media/DarkThemeByLevel.png)
- 
+## 🧭 Modo: Theme By Level
 
-por defecto se aplica el tema por nivel al ser el automatico y mas 
- sencillo, el por tono solo se activa agregando a SetTheme las palabras 
- "ByTone" (mas adelante se explicara) la ventana utilizada fue la 
- siguiente, cabe aclarar que la ventana utilizada fue la que se 
- proporciona dentro de la libreria de forma opcional, esta no se aplica 
- con el Thema sino de forma manual:
+Este modo aplica el tema de forma **automática**, siguiendo una lógica jerárquica: desde el componente padre hasta los hijos, **incrementando o disminuyendo la luminosidad** según el nivel de profundidad, hasta un máximo de 3 niveles, luego de los cuales se reinicia el tono original.
 
+**Ejemplo visual:**
+
+![DarkThemeByLevel.png](media/DarkThemeByLevel.png)
+
+> Por defecto, se utiliza el modo **Theme By Level** por ser más sencillo y automático. Para activar el modo por tono se debe usar explícitamente el método `setThemeByTone()` (ver más abajo).
+
+**Ventana base sin tema aplicado:**
 
 ![noTheme](media/NoTheme.png)
- 
 
-## Como utilizar
+---
 
-esta se utiliza de forma sencilla, en la carpeta dist encontraras la 
- libreria esta incluye la ventana personalizada y el Theme Manager, 
- ademas de esto se incluye PathUtils para poder trabajar de forma 
- sencilla con los directorio externos. despues de integrar el jar a tu 
- proyecto tienes varias opciones utilizar un tema externo 
- (dir/theme.propertie) que tengas localmente, un propertie que tengas en 
- recursos o un propertie directamente desde codigo y por ultimo si quiere 
- utilizarlo sin mayor precupacion puedes elegir la opcion de cargar un 
- tema a base de un color este generara los otros 8 colores necesarios 
- para aplicar el tema el codigo se detallara por partes.
+## 🚀 Cómo utilizar
 
- ##### crear una instancia
+En la carpeta `dist` encontrarás el archivo `.jar` con la librería, que incluye:
+
+* `ThemeManager`
+* `JWindowPlus` (ventana personalizada)
+* `PathUtils` (utilidades para manejo de rutas externas)
+
+Una vez agregada la librería a tu proyecto, puedes cargar temas de diversas formas:
+
+---
+
+### 🔧 Crear una instancia
 
 ```java
-ThemeManager themeManager = ThemeManager.getInstance()
+ThemeManager themeManager = ThemeManager.getInstance();
 ```
-luego con ello aseguramos que si se llama en otro punto ThemeManager sea 
- el mismo, ahora podemos cargar los temas por distintos medios:
-##### Temas por defecto o por properties en codigo:	
-```java
-//Temas por defecto o por properties en codigo
-themeManager.loadThemeFromProperties(themeM.getDarkThemeDefault(), "nameTheme");
-themeManager.loadThemeFromProperties(themeM.getLightThemeDefault(), "nameTheme2");
 
-//tema por un color:
+Esto garantiza una única instancia del ThemeManager a lo largo del proyecto (singleton).
+
+---
+
+### 🎨 Cargar un tema
+
+```java
+// Temas por defecto o desde propiedades en código
+themeManager.loadThemeFromProperties(themeManager.getDarkThemeDefault(), "darkTheme");
+themeManager.loadThemeFromProperties(themeManager.getLightThemeDefault(), "lightTheme");
+
+// Tema a partir de un color base
 themeManager.loadThemeFromColor(Color.BLACK);
-//tema desde recursos:
-themeManager.loadThemeFromResource(resourcePath);
-//tema desde directorio Externo:
-themeManager.loadThemeFromFilePath(FilePath);
-//tema desde directorio externo o recurso interno sino se encuentra:
-themeM.loadThemeFromFileOrDefault(filePath, resourcePath);
+
+// Tema desde recursos internos (classpath)
+themeManager.loadThemeFromResource("/themes/dark.properties");
+
+// Tema desde archivo externo
+themeManager.loadThemeFromFilePath("C:/miProyecto/temas/custom.properties");
+
+// Intenta cargar desde archivo externo o recurso si no se encuentra
+themeManager.loadThemeFromFileOrDefault("C:/externo.properties", "/temas/default.properties");
 ```
-serian todas las formas de cargar un tema, para aplicarlo tenemos muchas 
- formas, directamente a un contenedor o a la ventana :
+
+---
+
+### ✨ Aplicar un tema
+
 ```java
+// Modo automático (por jerarquía)
+themeManager.setTheme(window);
+
+// Modo manual (por tono de luminosidad)
 themeManager.setThemeByTone(window);
- themeManager.setTheme(window);
 ```
-recordando que si se utiliza el tema por tono deberia inicializarlo 
- primero llamandolo para que asi guarde los valores de luminosidad 
- originales y no los valores despues de haber aplicado cualquier tema... 
- los componentes se registran la primera vez que llama a serThemeByTone.
-si quiere aplicar el tema desde una ventana puede usar:
+
+> **Importante:** Si usas el modo `setThemeByTone`, asegúrate de llamarlo **antes** de aplicar cualquier tema, para que se conserven correctamente los valores de luminosidad originales. Los componentes se registran automáticamente la primera vez que se llama.
+
+---
+
+### 💾 Aplicar tema a una ventana guardada
+
 ```java
+// Guardar la ventana principal
 themeManager.saveMainWindow(window);
-//luego desde otra clase luego de haber cargado algun tema:
- theme.setThemeInMainWindow();
- theme.setThemeByToneInMainWindow();
-```
-##### uso de JWindowPlus
 
-este es un componente personalizado extendido desde JFrame, con el 
- objetivo de ser lo mas modificable posible el codigo esta en este 
- repositorio para verlo detalladamente como usarlo:
-##### creamos una instancia la cual necesita un panel donde tendras todo el 
- diseño de tu UI
+// En otra clase o momento:
+themeManager.setThemeInMainWindow();
+themeManager.setThemeByToneInMainWindow();
+```
+
+---
+
+## 🖼️ Uso de JWindowPlus
+
+`JWindowPlus` es una clase personalizada que extiende de `JFrame`. Está diseñada para ser altamente modificable y adaptable al contenido.
+
+### Ejemplo de uso
 
 ```java
-//creamos una instancia JavaWindowPlus window = new JavaWindowPlus(panel);
-//luego podemos hacerla visible y centrarla:
- window.setVisiblePlusRelativeTo(null);
+// Crear una instancia pasando el panel principal del diseño
+JavaWindowPlus window = new JavaWindowPlus(panel);
+
+// Hacerla visible y centrarla en pantalla
+window.setVisiblePlusRelativeTo(null);
 ```
-Esta ventan tiene funcionalidades como ocupar el tamaño preferido del 
- componente hijo, es decir el panel, tambien puedes modificar cosas como 
- el borde, title bar, agregar botones a este mismo title bar,
+
+### Características
+
+* Se ajusta automáticamente al tamaño preferido del panel hijo.
+* Permite personalizar el borde, el título, y agregar botones o elementos al `title bar`.
+* Totalmente compatible con los temas aplicados por `JThemeManager`.
+
+---
+
+## 📄 Ejemplo de archivo `.properties` aceptado
+
+```properties
+primary=#121212
+secondary=#1e1e1e
+tertiary=#2c2c2c
+error=#cf6679
+success=#03dac6
+neutral=#9e9e9e
+neutral_2=#bdbdbd
+text=#efefef
+```
+
+---
+
+## 📜 Licencia
+
+Este proyecto está bajo la licencia **MIT**. Es completamente **libre para uso personal, comercial, educativo o de código abierto**. Puedes modificarlo, distribuirlo y utilizarlo sin restricciones.
+
+---
+
