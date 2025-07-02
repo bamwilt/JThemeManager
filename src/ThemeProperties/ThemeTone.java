@@ -79,13 +79,13 @@ public class ThemeTone {
                 radio.setBackground(background);
                 radio.setForeground(foreground);
             }
+            case JCheckBox check -> {
+                UIClass.setUICheckBox(check, backvar, foreground, 1, 5, false);
+            }
             case AbstractButton btn -> {
                 UIClass.setUIButton(btn, background, foreground, 0, 5);
                 btn.setBackground(background);
                 btn.setForeground(foreground);
-                if (btn.getBorder() == null) {
-                    btn.setBorder(new LineBorder(neutralTransparent, 2));
-                }
             }
             case JComboBox<?> combo -> {
                 if (combo.getRenderer() == null) {

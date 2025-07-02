@@ -14,7 +14,7 @@ public class ThemeGenerator {
 
         Color primary = sanitizedPrimary;
         Color secondary = generateContrastColor(primary, 15, 0.15f, isDark);
-        Color tertiary = generateContrastColor(primary, -15, 0.30f, !isDark);
+        Color tertiary = generateContrastColor(primary, -15, 0.30f, isDark).darker();
 
         
         if (colorsTooSimilar(primary, secondary, 0.15)) {

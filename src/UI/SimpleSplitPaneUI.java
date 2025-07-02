@@ -10,12 +10,12 @@ import javax.swing.JButton;
 import javax.swing.plaf.basic.BasicSplitPaneDivider;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
 
-public class CustomSplitPaneUI extends BasicSplitPaneUI {
+public class SimpleSplitPaneUI extends BasicSplitPaneUI {
 
     private final Color dividerColor;
     private final Color dividerTextColor;
 
-    public CustomSplitPaneUI(Color dividerColor, Color dividerTextColor) {
+    public SimpleSplitPaneUI(Color dividerColor, Color dividerTextColor) {
         this.dividerColor = dividerColor;
         this.dividerTextColor = dividerTextColor;
     }

@@ -66,6 +66,9 @@ public class ThemeLevel {
                 radio.setBackground(primary);
                 radio.setForeground(text);
             }
+            case JCheckBox check -> {
+                UIClass.setUICheckBox(check, text, text, 1, 5, false);
+            }
             case AbstractButton btn -> {
                 UIClass.setUIButton(btn, primary, text, 0, 5);
                 btn.setBackground(primary);

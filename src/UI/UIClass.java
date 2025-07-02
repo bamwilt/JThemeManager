@@ -27,11 +27,11 @@ public class UIClass {
     }
 
     public static void setUIButton(AbstractButton button, Color background, Color foreground, int borderSize, int radius) {
-        button.setUI(new RoundedButtonUI(background, foreground, borderSize, radius));
+        button.setUI(new SimpleButtonUI(background, foreground, borderSize, radius));
     }
 
     public static void setUIRadioButton(JRadioButton radioButton, Color background, Color selectedColor, int borderSize, int radius, boolean paintBackground) {
-        radioButton.setUI(new FlexibleRadioButtonUI(borderSize, radius, paintBackground));
+        radioButton.setUI(new SimpleRadioButtonUI(borderSize, radius, paintBackground));
         radioButton.setBackground(background);
         radioButton.setForeground(selectedColor);
     }
@@ -45,6 +45,12 @@ public class UIClass {
         splitPane.setBackground(background);
         splitPane.setDividerSize(dividerSize);
         splitPane.setContinuousLayout(continuousLayout);
-        splitPane.setUI(new CustomSplitPaneUI(background, dividerTextColor));
+        splitPane.setUI(new SimpleSplitPaneUI(background, dividerTextColor));
+    }
+
+    public static void setUICheckBox(AbstractButton checkBox, Color background, Color foreground, int borderSize, int backgroundRadius, boolean paintBackground) {
+        checkBox.setUI(new SimpleCheckBoxUI(borderSize, backgroundRadius, paintBackground));
+        checkBox.setBackground(background);
+        checkBox.setForeground(foreground);
     }
 }

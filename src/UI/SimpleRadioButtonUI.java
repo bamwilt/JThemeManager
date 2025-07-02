@@ -13,20 +13,27 @@ import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.plaf.basic.BasicRadioButtonUI;
 
-public class FlexibleRadioButtonUI extends BasicRadioButtonUI {
+public class SimpleRadioButtonUI extends BasicRadioButtonUI {
 
     private int borderSize;
     private int backgroundRadius;
     private boolean paintBackground;
+    private Color selectedColor;
+    private int minDiameter = 8; 
 
-    public FlexibleRadioButtonUI() {
-        this(1, 8, false);
+    public SimpleRadioButtonUI() {
+        this(1, 8, false, null);
     }
 
-    public FlexibleRadioButtonUI(int borderSize, int backgroundRadius, boolean paintBackground) {
+    public SimpleRadioButtonUI(int borderSize, int backgroundRadius, boolean paintBackground) {
+        this(borderSize, backgroundRadius, paintBackground, null);
+    }
+
+    public SimpleRadioButtonUI(int borderSize, int backgroundRadius, boolean paintBackground, Color selectedColor) {
         this.borderSize = borderSize;
         this.backgroundRadius = backgroundRadius;
         this.paintBackground = paintBackground;
+        this.selectedColor = selectedColor;
     }
 
     @Override
@@ -64,41 +71,51 @@ public class FlexibleRadioButtonUI extends BasicRadioButtonUI {
             g2.fill(backgroundRect);
         }
 
-        int diameter = height / 2;
+        FontMetrics fm = g2.getFontMetrics();
+        int textHeight = fm.getHeight();
+        
+        int diameter = Math.max(textHeight - 4, minDiameter);
         int circleX = 8;
         int circleY = (height - diameter) / 2;
 
-        Color fillColor = b.getForeground();
         Color borderColor = b.getForeground();
+        Color innerColor = (selectedColor != null) ? selectedColor : b.getForeground();
 
         if (!b.isEnabled()) {
-            fillColor = fillColor.brighter().brighter();
             borderColor = borderColor.brighter().brighter();
-            g2.setColor(borderColor);
+            innerColor = innerColor.brighter().brighter();
         } else if (b.getModel().isPressed()) {
-            fillColor = fillColor.darker();
             borderColor = borderColor.darker();
+            innerColor = innerColor.darker();
         } else if (b.getModel().isRollover()) {
-            fillColor = fillColor.brighter();
             borderColor = borderColor.brighter();
+            innerColor = innerColor.brighter();
         }
 
-        g2.setColor(borderColor);
-        g2.setStroke(new BasicStroke(borderSize));
-        g2.drawOval(circleX, circleY, diameter, diameter);
+        int margin = borderSize;
+        int outerX = circleX + margin;
+        int outerY = circleY + margin;
+        int outerDiameter = diameter - 2 * margin;
+        
+        if (outerDiameter > 0) {
+            g2.setColor(borderColor);
+            g2.setStroke(new BasicStroke(borderSize));
+            g2.drawOval(outerX, outerY, outerDiameter, outerDiameter);
 
-        if (b.isSelected()) {
-            int innerDiameter = diameter / 2;
-            int innerX = circleX + (diameter - innerDiameter) / 2;
-            int innerY = circleY + (diameter - innerDiameter) / 2;
-            g2.setColor(fillColor);
-            g2.fillOval(innerX, innerY, innerDiameter + 1, innerDiameter + 1);
+            if (b.isSelected()) {
+                int innerMargin = margin * 2;
+                int innerDiameter = Math.max(outerDiameter - 2 * innerMargin, 1);
+                int innerX = outerX + innerMargin;
+                int innerY = outerY + innerMargin;
+                
+                g2.setColor(innerColor);
+                g2.fillOval(innerX, innerY, innerDiameter, innerDiameter);
+            }
         }
 
         String text = b.getText();
-        FontMetrics fm = g2.getFontMetrics();
         int textX = circleX + diameter + 8;
-        int textY = (height - fm.getHeight()) / 2 + fm.getAscent();
+        int textY = (height - textHeight) / 2 + fm.getAscent();
 
         g2.setFont(b.getFont());
         g2.setColor(b.isEnabled() ? b.getForeground() : b.getForeground().brighter().brighter());
@@ -111,9 +128,26 @@ public class FlexibleRadioButtonUI extends BasicRadioButtonUI {
     public Dimension getPreferredSize(JComponent c) {
         AbstractButton b = (AbstractButton) c;
         FontMetrics fm = b.getFontMetrics(b.getFont());
-        int diameter = fm.getHeight();
+        int textHeight = fm.getHeight();
+        int diameter = Math.max(textHeight - 4, minDiameter);
         int width = fm.stringWidth(b.getText()) + diameter + 20;
-        int height = fm.getHeight() + 10;
+        int height = textHeight + 10;
         return new Dimension(width, height);
+    }
+    
+    public void setSelectedColor(Color selectedColor) {
+        this.selectedColor = selectedColor;
+    }
+    
+    public Color getSelectedColor() {
+        return selectedColor;
+    }
+    
+    public void setMinDiameter(int minDiameter) {
+        this.minDiameter = minDiameter;
+    }
+    
+    public int getMinDiameter() {
+        return minDiameter;
     }
 }

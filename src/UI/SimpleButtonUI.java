@@ -13,7 +13,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.plaf.basic.BasicButtonUI;
 
-public class RoundedButtonUI extends BasicButtonUI {
+public class SimpleButtonUI extends BasicButtonUI {
 
     private Color colorBackground;
     private Color colorHover;
@@ -22,11 +22,11 @@ public class RoundedButtonUI extends BasicButtonUI {
     private int borderSize;
     private int radius;
 
-    public RoundedButtonUI() {
+    public SimpleButtonUI() {
         this(new Color(230, 230, 255), new Color(50, 50, 50), 1, 10);
     }
 
-    public RoundedButtonUI(Color background, Color borderColor, int borderSize, int radius) {
+    public SimpleButtonUI(Color background, Color borderColor, int borderSize, int radius) {
         this.colorBackground = background;
         this.colorHover = background.brighter();
         this.colorClick = background.darker();
