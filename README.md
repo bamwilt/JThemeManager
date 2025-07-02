@@ -16,7 +16,7 @@ Este modo se aplica de forma **manual** y ofrece un alto control sobre la aparie
 
 ## 🧭 Modo: Theme By Level
 
-Este modo aplica el tema de forma **automática**, siguiendo una lógica jerárquica: desde el componente padre hasta los hijos, **incrementando o disminuyendo la luminosidad** según el nivel de profundidad, hasta un máximo de 3 niveles, luego de los cuales se reinicia el tono original.
+Este modo aplica el tema de forma **automática**, siguiendo una lógica jerárquica: desde el componente padre hasta los hijos, **incrementando o disminuyendo la luminosidad** según el nivel de profundidad, hasta un máximo de 3 niveles, luego de los cuales se reinicia el tono original. 
 
 **Ejemplo visual:**
 
@@ -143,4 +143,8 @@ text=#efefef
 Este proyecto está bajo la licencia **MIT**. Es completamente **libre para uso personal, comercial, educativo o de código abierto**. Puedes modificarlo, distribuirlo y utilizarlo sin restricciones.
 
 ---
+
+> ⚠️ *Este repositorio también incluye algunos componentes opcionales de uso general: `JMarkdownEditor`, `JImageLabel` y `JTextCompleter`.
+> No forman parte central de `JThemeManager`, pero pueden resultar útiles para proyectos casuales o prototipos.* todo esto se encuentra en la carpeta /Components
+
 
