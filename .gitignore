@@ -1,0 +1,35 @@
+# NetBeans: Ignorar configuraciones personales locales
+nbproject/private/
+
+# Carpetas de build y distribución
+build/
+dist/
+nbdist/
+
+# Archivos compilados y empaquetados
+*.class
+*.jar
+*.war
+*.ear
+
+# Archivos temporales y de logs
+*~
+*.bak
+*.swp
+*.tmp
+*.log
+logs/
+
+# Archivos de salida estándar
+/target/
+/bin/
+/out/
+
+# Configuraciones de usuario
+*.user
+*.userprefs
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
