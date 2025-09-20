@@ -31,33 +31,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
-
-/*
-====== RECORDAR ======
-LIMPIAR JFRAME PLUS Y SEPARAR REDIMENSIONAMIENTO
-AGREGAR 4to BOTON DE REDIMENSION
-TESTEAR MODO IMAGEN DE MI JICONIMAGE
-AGREGAR REDIMENSIONAMIENTO A LOS LADOS DE BORDES DE LA PANTALLA TITLEBAR
-CAMBIAR TIMER POR SHENDULE EXECUTOR SERVICE
-
-redimension aun falta pulir deberia pasar de bordes de pantalla 
-hasta que el mouse toque el borde, no hasta que el borde de la pantalla se 
-toque con la ventana (debe de ser el metodo de insets seguro + resize)
-
-a la hora de settear el icon el JFrame deberia de ponerse el icono de imagen 
-o de texto si es posible, recordar settear el titulo el Titlebar y JFrame
-desde la clase
-
-deberia ver si agrego alguna fuente de letra mejor porque el linux o window 
-se miran distintas.[google font public 0]
-
-
--nota: no olvidar el doble borde del contenedor a la hora de separar las 
-clases de remension y ventana... y que si arrastro el titlebar
-en modo maximizado se deberia volver al estado original
-agregar un setColorExitButton a title bar 
-
- */
 public class JWindowPlus extends JFrame {
 
     static {
