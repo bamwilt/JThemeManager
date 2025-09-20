@@ -4,7 +4,7 @@
 
 ---
 
-## 🎨 Modo: Theme By Tone
+## Modo: Theme By Tone
 
 Este modo se aplica de forma **manual** y ofrece un alto control sobre la apariencia de cada componente. Utiliza una **escala de grises simplificada** (negro, gris, blanco) para definir los tonos del tema: color primario, secundario y terciario. El texto se adapta de manera similar, permitiendo personalizar el color de cualquier componente de forma precisa.
 
@@ -14,7 +14,7 @@ Este modo se aplica de forma **manual** y ofrece un alto control sobre la aparie
 
 ---
 
-## 🧭 Modo: Theme By Level
+## Modo: Theme By Level
 
 Este modo aplica el tema de forma **automática**, siguiendo una lógica jerárquica: desde el componente padre hasta los hijos, **incrementando o disminuyendo la luminosidad** según el nivel de profundidad, hasta un máximo de 3 niveles, luego de los cuales se reinicia el tono original. 
 
@@ -42,7 +42,7 @@ Una vez agregada la librería a tu proyecto, puedes cargar temas de diversas for
 
 ---
 
-### 🔧 Crear una instancia
+### Crear una instancia
 
 ```java
 ThemeManager themeManager = ThemeManager.getInstance();
@@ -52,7 +52,7 @@ Esto garantiza una única instancia del ThemeManager a lo largo del proyecto (si
 
 ---
 
-### 🎨 Cargar un tema
+### Cargar un tema
 
 ```java
 // Temas por defecto o desde propiedades en código
@@ -74,7 +74,7 @@ themeManager.loadThemeFromFileOrDefault("C:/externo.properties", "/temas/default
 
 ---
 
-### ✨ Aplicar un tema
+### Aplicar un tema
 
 ```java
 // Modo automático (por jerarquía)
@@ -88,7 +88,7 @@ themeManager.setThemeByTone(window);
 
 ---
 
-### 💾 Aplicar tema a una ventana guardada
+### Aplicar tema a una ventana guardada
 
 ```java
 // Guardar la ventana principal
@@ -101,7 +101,7 @@ themeManager.setThemeByToneInMainWindow();
 
 ---
 
-## 🖼️ Uso de JWindowPlus
+## Uso de JWindowPlus
 
 `JWindowPlus` es una clase personalizada que extiende de `JFrame`. Está diseñada para ser altamente modificable y adaptable al contenido.
 
@@ -123,7 +123,7 @@ window.setVisiblePlusRelativeTo(null);
 
 ---
 
-## 📄 Ejemplo de archivo `.properties` aceptado
+## Ejemplo de archivo `.properties` aceptado
 
 ```properties
 primary=#121212
@@ -138,7 +138,7 @@ text=#efefef
 
 ---
 
-## 📜 Licencia
+## Licencia
 
 Este proyecto está bajo la licencia **MIT**. Es completamente **libre para uso personal, comercial, educativo o de código abierto**. Puedes modificarlo, distribuirlo y utilizarlo sin restricciones.
 
